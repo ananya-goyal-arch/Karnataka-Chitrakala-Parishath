@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Study Screens</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #FDFCFC;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Standard navbar for section indicators, matches main content width */
+        .section-indicator-bar {
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            background: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0;
+            padding: 0 0;
+            border-bottom: 1px solid #eee;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            margin: 0 auto;
+            width: 100%;
+            max-width: 1200px;
+            overflow-x: auto;
+        }
+
+        /* Hamburger menu styles */
+        .hamburger-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: #fff;
+            border-bottom: 1px solid #eee;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            padding: 12px 16px;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .hamburger-button {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 8px;
+            color: #333;
+        }
+
+        .current-section {
+            font-weight: 500;
+            color: #e91e63;
+            font-size: 16px;
+        }
+
+        .mobile-nav-menu {
+            position: fixed;
+            top: 60px;
+            left: 0;
+            right: 0;
+            background: #fff;
+            border-bottom: 1px solid #eee;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            z-index: 999;
+            display: none;
+            flex-direction: column;
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+
+        .mobile-nav-menu.open {
+            display: flex;
+        }
+
+        .mobile-nav-item {
+            padding: 16px 20px;
+            border: none;
+            background: none;
+            color: #333;
+            font-size: 16px;
+            font-weight: 500;
+            text-align: left;
+            cursor: pointer;
+            border-bottom: 1px solid #f0f0f0;
+            transition: background-color 0.2s, color 0.2s;
+        }
+
+        .mobile-nav-item:hover {
+            background: #f8f8f8;
+            color: #e91e63;
+        }
+
+        .mobile-nav-item.active {
+            color: #e91e63;
+            background: #fdf2f8;
+        }
+
+        .mobile-nav-item:last-child {
+            border-bottom: none;
+        }
+
+        @media (max-width: 900px) {
+            .section-indicator-bar {
+                display: none;
+            }
+            
+            .hamburger-menu {
+                display: flex;
+            }
+            
+            #screens {
+                padding-top: 60px;
+            }
+        }
+
+        .section-indicator {
+            cursor: pointer;
+            padding: 16px 32px;
+            border: none;
+            background: none;
+            color: #333;
+            font-size: 17px;
+            font-weight: 500;
+            border-bottom: 3px solid transparent;
+            transition: color 0.2s, border-bottom 0.2s;
+            outline: none;
+            white-space: nowrap;
+        }
+        .section-indicator:hover {
+            color: #e91e63;
+        }
+        .section-indicator.active {
+            color: #e91e63;
+            border-bottom: 3px solid #e91e63;
+            background: none;
+        }
+
+        #screens {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 10vh 0; /* Add top and bottom padding */
+        }
+
+        .group-separator {
+            width: 100%;
+            height: 18px;
+            background: none;
+            border-bottom: 1px solid #eee;
+            margin: 0 0 0 0;
+        }
+        .vertical-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            margin: 0;
+            padding: 0;
+        }
+        .horizontal-group {
+            display: flex;
+            flex-direction: row;
+            gap: 0;
+            overflow-x: auto;
+            margin: 0;
+            padding: 0;
+            background: #f7f7fa;
+            scroll-snap-type: x mandatory;
+        }
+        .screen-img {
+            max-width: 100%;
+            height: auto;
+            box-shadow: none;
+            border-radius: 0;
+            background: none;
+            display: block;
+            margin: 0;
+            padding: 0;
+            transition: box-shadow 0.2s, transform 0.2s;
+            scroll-snap-align: start;
+        }
+        .horizontal-group .screen-img {
+            flex-shrink: 0;
+            width: 90%;
+        }
+
+        .back-to-top {
+            position: fixed;
+            right: 24px;
+            bottom: 32px;
+            background: #e91e63;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            font-size: 22px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 200;
+            opacity: 0.85;
+            transition: opacity 0.2s;
+        }
+        .back-to-top:hover {
+            opacity: 1;
+        }
+
+        /* Placeholder for missing images */
+        .placeholder-img {
+            width: 100%;
+            height: 400px;
+            background: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-size: 16px;
+            border: 2px dashed #ccc;
+            margin: 0;
+        }
+        .horizontal-group .placeholder-img {
+            height: 200px;
+        }
+
+        /* Overlay to close mobile menu when clicking outside */
+        .mobile-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.3);
+            z-index: 998;
+            display: none;
+        }
+        .mobile-overlay.open {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Desktop navbar -->
+    <nav class="section-indicator-bar">
+        <button class="section-indicator" data-target="section-02">Introduction</button>
+        <button class="section-indicator" data-target="section-05">Empathise</button>
+        <button class="section-indicator" data-target="section-10">Define</button>
+        <button class="section-indicator" data-target="section-15">Ideate</button>
+        <button class="section-indicator" data-target="section-17">Testing</button>
+        <button class="section-indicator" data-target="section-18">Prototype</button>
+        <button class="section-indicator" data-target="section-34">Next Steps</button>
+    </nav>
+
+    <!-- Mobile hamburger menu -->
+    <div class="hamburger-menu">
+        <div class="current-section" id="current-section-text">Introduction</div>
+        <button class="hamburger-button" id="hamburger-btn">☰</button>
+    </div>
+
+    <!-- Mobile menu overlay -->
+    <div class="mobile-overlay" id="mobile-overlay"></div>
+
+    <!-- Mobile navigation menu -->
+    <nav class="mobile-nav-menu" id="mobile-nav">
+        <button class="mobile-nav-item" data-target="section-02">Introduction</button>
+        <button class="mobile-nav-item" data-target="section-05">Empathise</button>
+        <button class="mobile-nav-item" data-target="section-10">Define</button>
+        <button class="mobile-nav-item" data-target="section-15">Ideate</button>
+        <button class="mobile-nav-item" data-target="section-17">Testing</button>
+        <button class="mobile-nav-item" data-target="section-18">Prototype</button>
+        <button class="mobile-nav-item" data-target="section-34">Next Steps</button>
+    </nav>
+
+    <div id="screens">
+        <div id="section-01" class="vertical-group">
+            <img src="Images/01.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 01.png</div>'">
+        </div>
+        <div id="section-02" class="vertical-group">
+            <img src="Images/02.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 02.png</div>'">
+        </div>
+        <div id="section-03" class="vertical-group">
+            <img src="Images/03.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 03.png</div>'">
+        </div>
+        <div id="section-04" class="vertical-group">
+            <img src="Images/04.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 04.png</div>'">
+        </div>
+        <div id="section-05" class="vertical-group">
+            <img src="Images/05.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 05.png</div>'">
+        </div>
+        <div id="section-06" class="vertical-group">
+            <img src="Images/06.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 06.png</div>'">
+        </div>
+        <div id="section-06A" class="horizontal-group">
+            <img src="Images/06A.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 06A.png</div>'">
+            <img src="Images/06B.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 06B.png</div>'">
+            <img src="Images/06C.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 06C.png</div>'">
+            <img src="Images/06D.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 06D.png</div>'">
+            <img src="Images/06E.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 06E.png</div>'">
+            <img src="Images/06F.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 06F.png</div>'">
+        </div>
+        <div id="section-07" class="vertical-group">
+            <img src="Images/07.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 07.png</div>'">
+        </div>
+        <div id="section-07A" class="horizontal-group">
+            <img src="Images/07A.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 07A.png</div>'">
+            <img src="Images/07B.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 07B.png</div>'">
+            <img src="Images/07C.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 07C.png</div>'">
+            <img src="Images/07D.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 07D.png</div>'">
+            <img src="Images/07E.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 07E.png</div>'">
+            <img src="Images/07F.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 07F.png</div>'">
+        </div>
+        <div id="section-08" class="vertical-group">
+            <img src="Images/08.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 08.png</div>'">
+        </div>
+        <div id="section-09" class="vertical-group">
+            <img src="Images/09.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 09.png</div>'">
+        </div>
+        <div id="section-09A" class="horizontal-group">
+            <img src="Images/09A.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 09A.png</div>'">
+            <img src="Images/09B.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 09B.png</div>'">
+        </div>
+        <div id="section-10" class="vertical-group">
+            <img src="Images/10.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 10.png</div>'">
+        </div>
+        <div id="section-11" class="vertical-group">
+            <img src="Images/11.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 11.png</div>'">
+        </div>
+        <div id="section-12" class="vertical-group">
+            <img src="Images/12.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 12.png</div>'">
+        </div>
+        <div id="section-13" class="vertical-group">
+            <img src="Images/13.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 13.png</div>'">
+        </div>
+        <div id="section-14" class="vertical-group">
+            <img src="Images/14.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 14.png</div>'">
+        </div>
+        <div id="section-14A" class="horizontal-group">
+            <img src="Images/14A.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 14A.png</div>'">
+            <img src="Images/14B.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 14B.png</div>'">
+            <img src="Images/14C.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 14C.png</div>'">
+            <img src="Images/14D.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 14D.png</div>'">
+            <img src="Images/14E.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 14E.png</div>'">
+            <img src="Images/14F.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 14F.png</div>'">
+            <img src="Images/14G.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 14G.png</div>'">
+        </div>
+        <div id="section-15" class="vertical-group">
+            <img src="Images/15.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 15.png</div>'">
+        </div>
+        <div id="section-15A" class="horizontal-group">
+            <img src="Images/15A.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 15A.png</div>'">
+            <img src="Images/15B.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 15B.png</div>'">
+            <img src="Images/15C.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 15C.png</div>'">
+            <img src="Images/15D.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 15D.png</div>'">
+            <img src="Images/15E.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 15E.png</div>'">
+            <img src="Images/15F.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 15F.png</div>'">
+        </div>
+        <div id="section-16" class="vertical-group">
+            <img src="Images/16.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 16.png</div>'">
+        </div>
+        <div id="section-16A" class="horizontal-group">
+            <img src="Images/16A.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 16A.png</div>'">
+            <img src="Images/16B.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 16B.png</div>'">
+            <img src="Images/16C.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 16C.png</div>'">
+            <img src="Images/16D.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 16D.png</div>'">
+        </div>
+        <div id="section-17" class="vertical-group">
+            <img src="Images/17.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 17.png</div>'">
+        </div>
+        <div id="section-17A" class="horizontal-group">
+            <img src="Images/17A.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 17A.png</div>'">
+            <img src="Images/17B.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 17B.png</div>'">
+            <img src="Images/17C.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 17C.png</div>'">
+            <img src="Images/17D.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 17D.png</div>'">
+            <img src="Images/17E.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 17E.png</div>'">
+            <img src="Images/17F.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 17F.png</div>'">
+        </div>
+        <div id="section-18" class="vertical-group">
+            <img src="Images/18.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 18.png</div>'">
+        </div>
+        <div id="section-19" class="vertical-group">
+            <img src="Images/19.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 19.png</div>'">
+        </div>
+        <div id="section-20" class="vertical-group">
+            <img src="Images/20.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 20.png</div>'">
+        </div>
+        <div id="section-21" class="vertical-group">
+            <img src="Images/21.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 21.png</div>'">
+        </div>
+        <div id="section-22" class="vertical-group">
+            <img src="Images/22.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 22.png</div>'">
+        </div>
+        <div id="section-23" class="vertical-group">
+            <img src="Images/23.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 23.png</div>'">
+        </div>
+        <div id="section-24" class="vertical-group">
+            <img src="Images/24.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 24.png</div>'">
+        </div>
+        <div id="section-25" class="vertical-group">
+            <img src="Images/25.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 25.png</div>'">
+        </div>
+        <div id="section-26" class="vertical-group">
+            <img src="Images/26.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 26.png</div>'">
+        </div>
+        <div id="section-27" class="vertical-group">
+            <img src="Images/27.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 27.png</div>'">
+        </div>
+        <div id="section-28" class="vertical-group">
+            <img src="Images/28.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 28.png</div>'">
+        </div>
+        <div id="section-30" class="vertical-group">
+            <img src="Images/30.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 30.png</div>'">
+        </div>
+        <div id="section-32" class="vertical-group">
+            <img src="Images/32.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 32.png</div>'">
+        </div>
+        <div id="section-34" class="vertical-group">
+            <img src="Images/34.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 34.png</div>'">
+        </div>
+        <div id="section-35" class="vertical-group">
+            <img src="Images/35.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 35.png</div>'">
+        </div>
+    </div>
+    
+    <button class="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to Top">&#8679;</button>
+
+    <script>
+        // Section indicator navigation logic
+        document.addEventListener('DOMContentLoaded', function() {
+            const desktopIndicators = document.querySelectorAll('.section-indicator');
+            const mobileIndicators = document.querySelectorAll('.mobile-nav-item');
+            const allIndicators = [...desktopIndicators, ...mobileIndicators];
+            const navbar = document.querySelector('.section-indicator-bar');
+            const hamburgerBtn = document.getElementById('hamburger-btn');
+            const mobileNav = document.getElementById('mobile-nav');
+            const mobileOverlay = document.getElementById('mobile-overlay');
+            const currentSectionText = document.getElementById('current-section-text');
+
+            // Section name mapping
+            const sectionNames = {
+                'section-02': 'Introduction',
+                'section-05': 'Empathise',
+                'section-10': 'Define',
+                'section-15': 'Ideate',
+                'section-17': 'Testing',
+                'section-18': 'Prototype',
+                'section-34': 'Next Steps'
+            };
+
+            // Toggle mobile menu
+            function toggleMobileMenu() {
+                const isOpen = mobileNav.classList.contains('open');
+                if (isOpen) {
+                    closeMobileMenu();
+                } else {
+                    openMobileMenu();
+                }
+            }
+
+            function openMobileMenu() {
+                mobileNav.classList.add('open');
+                mobileOverlay.classList.add('open');
+                hamburgerBtn.innerHTML = '✕';
+            }
+
+            function closeMobileMenu() {
+                mobileNav.classList.remove('open');
+                mobileOverlay.classList.remove('open');
+                hamburgerBtn.innerHTML = '☰';
+            }
+
+            // Event listeners for mobile menu
+            hamburgerBtn.addEventListener('click', toggleMobileMenu);
+            mobileOverlay.addEventListener('click', closeMobileMenu);
+
+            // Navigation click handlers
+            function handleNavClick(btn) {
+                const targetId = btn.getAttribute('data-target');
+                const target = document.getElementById(targetId);
+                if (target) {
+                    const isMobile = window.innerWidth <= 900;
+                    const navbarHeight = isMobile ? 60 : (navbar ? navbar.offsetHeight : 0);
+                    const targetRect = target.getBoundingClientRect();
+                    const scrollTop = window.pageYOffset + targetRect.top - navbarHeight;
+                    
+                    window.scrollTo({top: scrollTop, behavior: 'smooth'});
+                    
+                    // Close mobile menu if open
+                    if (isMobile) {
+                        closeMobileMenu();
+                    }
+                    
+                    // Update active state will be handled by scroll listener
+                }
+            }
+
+            // Add click listeners to all nav items
+            allIndicators.forEach(btn => {
+                btn.addEventListener('click', () => handleNavClick(btn));
+            });
+
+            // Update active indicator on scroll
+            function updateActiveIndicator() {
+                const isMobile = window.innerWidth <= 900;
+                const navbarHeight = isMobile ? 60 : (navbar ? navbar.offsetHeight : 0);
+                let currentSection = null;
+                let currentSectionName = 'Introduction'; // Default
+
+                // Find current section
+                const navSections = ['section-02', 'section-05', 'section-10', 'section-15', 'section-17', 'section-18', 'section-34'];
+                
+                for (let i = navSections.length - 1; i >= 0; i--) {
+                    const sectionId = navSections[i];
+                    const target = document.getElementById(sectionId);
+                    if (target) {
+                        const rect = target.getBoundingClientRect();
+                        if (rect.top <= navbarHeight + 100) {
+                            currentSection = sectionId;
+                            currentSectionName = sectionNames[sectionId];
+                            break;
+                        }
+                    }
+                }
+
+                // Update active states for both desktop and mobile
+                allIndicators.forEach(btn => {
+                    const targetId = btn.getAttribute('data-target');
+                    if (targetId === currentSection) {
+                        btn.classList.add('active');
+                    } else {
+                        btn.classList.remove('active');
+                    }
+                });
+
+                // Update mobile current section text
+                if (currentSectionText) {
+                    currentSectionText.textContent = currentSectionName;
+                }
+            }
+
+            // Throttled scroll listener
+            let scrollTimeout;
+            window.addEventListener('scroll', function() {
+                if (scrollTimeout) {
+                    clearTimeout(scrollTimeout);
+                }
+                scrollTimeout = setTimeout(updateActiveIndicator, 10);
+            });
+
+            // Initial active state
+            updateActiveIndicator();
+        });
+    </script>
+</body>
+</html>
