@@ -59,7 +59,7 @@
 
         .current-section {
             font-weight: 500;
-            color: #e91e63;
+            color: #CB3350;
             font-size: 16px;
         }
 
@@ -97,11 +97,11 @@
 
         .mobile-nav-item:hover {
             background: #f8f8f8;
-            color: #e91e63;
+            color: #CB3350;
         }
 
         .mobile-nav-item.active {
-            color: #e91e63;
+            color: #CB3350;
             background: #fdf2f8;
         }
 
@@ -140,8 +140,8 @@
             color: #e91e63;
         }
         .section-indicator.active {
-            color: #e91e63;
-            border-bottom: 3px solid #e91e63;
+            color: #CB3350;
+            border-bottom: 3px solid #CB3350;
             background: none;
         }
 
@@ -169,11 +169,20 @@
             display: flex;
             flex-direction: row;
             gap: 0;
-            overflow-x: auto;
-            margin: 0;
+            overflow-x: scroll !important;
+            min-height: 18px;
+            margin: 0% 10%;
             padding: 0;
             background: #f7f7fa;
             scroll-snap-type: x mandatory;
+        }
+        .horizontal-group::-webkit-scrollbar {
+            height: 12px;
+            background: #e0e0e0;
+        }
+        .horizontal-group::-webkit-scrollbar-thumb {
+            background: #bdbdbd;
+            border-radius: 6px;
         }
         .screen-img {
             max-width: 100%;
@@ -189,14 +198,13 @@
         }
         .horizontal-group .screen-img {
             flex-shrink: 0;
-            width: 90%;
         }
 
         .back-to-top {
             position: fixed;
             right: 24px;
             bottom: 32px;
-            background: #e91e63;
+            background: #CB3350;
             color: #fff;
             border: none;
             border-radius: 50%;
@@ -402,8 +410,18 @@
         <div id="section-23" class="vertical-group">
             <img src="Images/23.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 23.png</div>'">
         </div>
-        <div id="section-24" class="vertical-group">
-            <img src="Images/24.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 24.png</div>'">
+        <div id="section-23A" class="horizontal-group">
+            <img src="Images/23A.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 23A.png</div>'">
+            <img src="Images/23B.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 23B.png</div>'">
+            <img src="Images/23C.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 23C.png</div>'">
+            <img src="Images/23D.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 23D.png</div>'">
+            <img src="Images/23E.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 23E.png</div>'">
+            <img src="Images/23F.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 23F.png</div>'">
+            <img src="Images/23G.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 23G.png</div>'">
+        </div>
+        <div id="section-24A" class="horizontal-group">
+            <img src="Images/24A.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 24A.png</div>'">
+            <img src="Images/24B.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 24B.png</div>'">
         </div>
         <div id="section-25" class="vertical-group">
             <img src="Images/25.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 25.png</div>'">
@@ -414,21 +432,8 @@
         <div id="section-27" class="vertical-group">
             <img src="Images/27.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 27.png</div>'">
         </div>
-        <div id="section-28" class="vertical-group">
-            <img src="Images/28.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 28.png</div>'">
-        </div>
-        <div id="section-30" class="vertical-group">
-            <img src="Images/30.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 30.png</div>'">
-        </div>
-        <div id="section-32" class="vertical-group">
-            <img src="Images/32.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 32.png</div>'">
-        </div>
-        <div id="section-34" class="vertical-group">
-            <img src="Images/34.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 34.png</div>'">
-        </div>
-        <div id="section-35" class="vertical-group">
-            <img src="Images/35.png" class="screen-img" onerror="this.outerHTML='<div class=&quot;placeholder-img&quot;>Image: 35.png</div>'">
-        </div>
+        <!-- Removed sections for 28, 30, 32, 34, 35 as images do not exist -->
+        
     </div>
     
     <button class="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to Top">&#8679;</button>
